@@ -36,7 +36,8 @@
                             <div class="card-header">
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-block-tool btn-success btn-sm"
-                                        data-toggle="modal" data-target="#modal-default" onclick="load_modal(1)">สร้างหมวดหมู่</button>
+                                        data-toggle="modal" data-target="#modal-default"
+                                        onclick="load_modal(1)">สร้างหมวดหมู่</button>
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
                                     </button>
@@ -45,29 +46,18 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
-                                        <table id="example1" class="table table-bordered table-striped">
+                                        <table id="type_travel_table" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>ลําดับ</th>
                                                     <th>ชื่อหมวดหมู่</th>
+                                                    <th>สถานะ</th>
                                                     <th>จัดการ</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>ชื่อหมวดหมู่</td>
-                                                    <td> <button type="button"
-                                                            class="btn btn-block-tool btn-warning btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#modal-default">แก้ไขบทความ</button>
-                                                        <button type="button"
-                                                            class="btn btn-block-tool btn-danger btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#modal-default">ลบบทความ</button>
-                                                    </td>
-                                                </tr>
                                             </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -86,21 +76,162 @@
     <script>
         function load_modal(load_check, data_encode) {
             crud_category = document.getElementById("crud_category");
-            $(".modal-body #category_name").val('');
+            $(".modal-body #name_travel").val('');
 
             if (load_check == 1) {
                 crud_category.style.display = "block";
                 $('#customSwitch_status').hide();
 
-                $(".modal-header #title_modal").text("สร้างข้อมูลผู้ใช้");
-                $(".modal-footer #submit").text("สร้างข้อมูลผู้ใช้");
-                $(".modal-body #url_route").val("dashboard/customer/create/4");
+                $(".modal-header #title_modal").text("สร้างข้อมูลหมวดหมู่");
+                $(".modal-footer #submit").text("สร้างข้อมูลหมวดหมู่");
+                $(".modal-body #url_route").val("dashboard/type_travel/create");
             } else if (load_check == 2) {
                 $('#customSwitch_status').show();
                 crud_category.style.display = "block";
+                const rowData = JSON.parse(decodeURIComponent(data_encode));
+                const customSwitch3 = $(".modal-body #customSwitch3");
+                const labelCustomSwitch3 = $(".modal-body #LabelcustomSwitch3");
+                console.log(rowData.status);
+                labelCustomSwitch3.text(rowData.status == 1 ? "เปิดใช้งาน" : "ปิดใช้งาน");
+                if (rowData.status == '1') {
+                    customSwitch3.prop('checked', true);
+                } else {
+                    customSwitch3.prop('checked', false);
+                }
+                $(".modal-body #name_travel").val(rowData.name_travel);
 
-                $(".modal-header #title_modal").text("จัดการผู้ใช้งาน");
-                $(".modal-footer #submit").text("บันทึกข้อมูล");
+                $(".modal-header #title_modal").text("แก้ไขข้อมูลหมวดหมู่");
+                $(".modal-footer #submit").text("แก้ไขข้อมูลหมวดหมู่");
+                $(".modal-body #url_route").val("dashboard/type_travel/edit/" + rowData.id_type_travel);
             }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            getTableData();
+        });
+        function getTableData() {
+            if ($.fn.DataTable.isDataTable('#type_travel_table')) {
+                $('#type_travel_table').DataTable().destroy();
+            }
+            $('#type_travel_table').DataTable({
+                "processing": $("#customer_Table .overlay").show(),
+                "pageLength": 10,
+                "pagingType": "full_numbers", // Display pagination as 1, 2, 3... instead of Previous, Next buttons
+                'serverSide': true,
+                'ajax': {
+                    'url': "<?php echo site_url('dashboard/type_travel/getdata'); ?>",
+                    'type': 'GET',
+                    'dataSrc': 'data',
+                },
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "ordering": false,
+                "lengthChange": false,
+                "autoWidth": false,
+                "searching": true,
+                "drawCallback": function (settings) {
+                    $("#customer_Table .overlay").hide();
+                    var daData = settings.json.data;
+                    if (daData.length == 0) {
+                        $('#type_travel_table tbody').html(`
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                ยังไม่มีข้อมูล
+                            </td>
+                        </tr>`
+                        );
+                    }
+                },
+                'columns': [
+                    {
+                        'data': null,
+                        'class': 'text-center',
+                        'render': function (data, type, row, meta) {
+                            return meta.settings.oAjaxData.start += 1;
+                        }
+                    },
+                    {
+                        'data': null,
+                        'class': 'text-center',
+                        'render': function (data, type, row, meta) {
+                            return data.name_travel;
+                        }
+                    },
+                    {
+                        'data': null,
+                        'class': 'text-center',
+                        'render': function (data, type, row, meta) {
+                            if (data.status == 1) {
+                                return `<span class='badge bg-success'>ใช้งาน</span>`;
+                            } else if (data.status == 0) {
+                                return `<span class='badge bg-danger'>ปิดใช้งาน</span>`;
+                            }
+                        }
+                    },
+                    {
+                        'data': null,
+                        'class': 'text-center',
+                        'render': function (data, type, row, meta) {
+                            const encodedRowData = encodeURIComponent(JSON.stringify(row));
+                            return `<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default" onclick="load_modal(2,'${encodedRowData}')">แก้ไขข้อมูล</button>`;
+                        }
+                    },
+                ]
+            });
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    </script>
+    <script>
+        function action_(url, form) {
+            var formData = new FormData(document.getElementById(form));
+            $.ajax({
+                url: '<?= base_url() ?>' + url,
+                type: "POST",
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "JSON",
+                beforeSend: function () {
+                    // Show loading indicator here
+                    var loadingIndicator = Swal.fire({
+                        title: 'กําลังดําเนินการ...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                    });
+                },
+                success: function (response) {
+                    Swal.close();
+                    if (response.success) {
+                        Swal.fire({
+                            title: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            allowOutsideClick: true
+                        });
+                        setTimeout(() => {
+                            if (response.reload) {
+                                getTableData();
+                            }
+                        }, 2000);
+                    } else {
+                        Swal.fire({
+                            title: response.message,
+                            icon: 'error',
+                            confirmButtonText: 'ตกลง',
+                            showConfirmButton: true
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        title: "เกิดข้อผิดพลาด",
+                        icon: 'error',
+                        confirmButtonText: 'ตกลง',
+                        showConfirmButton: true
+                    });
+                }
+            });
         }
     </script>

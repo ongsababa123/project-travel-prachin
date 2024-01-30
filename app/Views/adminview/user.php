@@ -248,7 +248,7 @@
                         });
                         setTimeout(() => {
                             if (response.reload) {
-                                window.location.reload();
+                                getTableData();
                             }
                         }, 2000);
                     } else {
@@ -338,7 +338,7 @@
                             });
                             setTimeout(() => {
                                 if (response.reload) {
-                                    window.location.reload();
+                                    getTableData();
                                 }
                             }, 2000);
                         } else {

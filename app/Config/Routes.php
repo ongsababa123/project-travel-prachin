@@ -8,16 +8,16 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'HomeController::indexHome');
 $routes->group("/", function ($routes) {
     $routes->match(['get', 'post'], 'index', 'HomeController::indexHome'); //หน้าหลัก
-    $routes->match(['get', 'post'], 'article', 'HomeController::index_article'); //หน้าบทความทั้งหมด
-    $routes->match(['get', 'post'], 'article/(:num)/(:num)', 'HomeController::index_article/$1/$2'); //หน้าบทความทั้งหมด   (ไอดีบทความ/ประเภท)
+    $routes->match(['get', 'post'], 'article/(:num)', 'HomeController::index_article/$1'); //หน้าบทความทั้งหมด
+    $routes->match(['get', 'post'], 'article/(:num)/(:num)', 'HomeController::index_article/$1/$2'); //หน้าบทตามไอดี   (ไอดีบทความ/ประเภท)
 
     $routes->match(['get', 'post'], 'article/detail', 'HomeController::index_article_detail'); //หน้ารายละเอียดบทความนั้นๆ
     $routes->match(['get', 'post'], 'new', 'HomeController::index_new'); //หน้าข่าวทั้งหมด
 });
 
 $routes->match(['get', 'post'], 'dashboard/login', 'DashboardController::index_login'); //หน้าล็อคอิน
-$routes->match(['get', 'post'], 'dashboard/auth/login', 'UserController::loginAuth'); //หน้าล็อคอิน
-$routes->match(['get', 'post'], 'dashboard/auth/logout', 'UserController::logout'); //หน้าล็อคอิน
+$routes->match(['get', 'post'], 'dashboard/auth/login', 'UserController::loginAuth'); //ฟั่งชั่นล็อคอิน
+$routes->match(['get', 'post'], 'dashboard/auth/logout', 'UserController::logout'); //ฟังชั่นล็อคเอ้า
 $routes->group("/dashboard", ['filter' => ['AuthGuard']], function ($routes) {
 
     $routes->match(['get', 'post'], 'profile/index', 'DashboardController::index_profile'); //หน้าโปรไฟล์
@@ -25,7 +25,7 @@ $routes->group("/dashboard", ['filter' => ['AuthGuard']], function ($routes) {
 
     //--ผู้ใช้้--//
     $routes->match(['get', 'post'], 'user/index', 'DashboardController::index_user'); //หน้าแสดงข้อมูลผู้ใช้
-    $routes->match(['get', 'post'], 'user/getdata', 'UserController::get_data_table_user'); //หน้าแสดงข้อมูลผู้ใช้
+    $routes->match(['get', 'post'], 'user/getdata', 'UserController::get_data_table_user'); //ฟังชั่นเรียกข้อมูล
     $routes->match(['get', 'post'], 'user/create', 'UserController::create_user'); //ฟังชั่น เพิ่ม ผู้ใช้
     $routes->match(['get', 'post'], 'user/edit/(:num)/(:num)', 'UserController::edit_user/$1/$2'); //ฟังชั่น แก้ไข ผู้ใช้ (ไอดีผู้ใช้/ประเภท)
     $routes->match(['get', 'post'], 'user/delete/(:num)', 'UserController::delete_user/$1'); //ฟังชั่น ลบ ผู้ใช้ (ไอดีผู้ใช้)
@@ -41,10 +41,9 @@ $routes->group("/dashboard", ['filter' => ['AuthGuard']], function ($routes) {
 
     //--หมวดหมู่--//
     $routes->match(['get', 'post'], 'category/index', 'DashboardController::index_category_all'); //หน้าแสดงหมวดหมู่ทั้งหมด
-    //ฟังชั่น เพิ่ม หมวดหมู่
-    //ฟังชั่น แก้ไข หมวดหมู่
-    //ฟังชั่น ลบ หมวดหมู่
-
+    $routes->match(['get', 'post'], 'type_travel/getdata', 'TypeTravelController::get_data_table_type_travel'); //ฟังชั่นเรียกข้อมูล
+    $routes->match(['get', 'post'], 'type_travel/create', 'TypeTravelController::create_type_travel');  //ฟังชั่น เพิ่ม หมวดหมู่
+    $routes->match(['get', 'post'], 'type_travel/edit/(:num)', 'TypeTravelController::edit_type_travel/$1');  //ฟังชั่น แก้ไข หมวดหมู่
 
     //--ข่าวสาร--//
     $routes->match(['get', 'post'], 'news/index', 'DashboardController::index_news_all'); //หน้าแสดงข่าวสารทั้งหมด

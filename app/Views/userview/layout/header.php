@@ -35,7 +35,7 @@
     <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-info" color-on-scroll="300">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="<?= site_url('/') ?>" rel="tooltip" title="Coded by Creative Tim"
+                <a class="navbar-brand" href="<?= base_url('/') ?>" rel="tooltip" title="Coded by Creative Tim"
                     data-placement="bottom" style="font-size: medium">
                     หน้าหลัก
                 </a>
@@ -53,11 +53,14 @@
                         <a href="#" id="navbarDropdownMenu" data-toggle="dropdown" aria-haspopup="true"
                             style="font-size: medium" aria-expanded="false" class="nav-link">หมวดหมู่</i></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-                            <a class="dropdown-item" style="font-size: medium" href="<?= site_url('/article') ?>">หมวดหมู่ทั้งหมด</a>
+                            <a class="dropdown-item" style="font-size: medium" href="<?= base_url('/article/0') ?>">หมวดหมู่ทั้งหมด</a>
+                            <?php foreach ($type_travel_data as $key => $value) : ?>
+                                <a class="dropdown-item" style="font-size: medium" href="<?= base_url('/article/' . $value['id_type_travel']) ?>"><?= $value['name_travel'] ?></a>
+                            <?php endforeach; ?>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= site_url('/new') ?>" class="nav-link" style="font-size: medium"> ข่าวสาร</a>
+                        <a href="<?= base_url('/new') ?>" class="nav-link" style="font-size: medium"> ข่าวสาร</a>
                     </li>
                 </ul>
             </div>

@@ -7,7 +7,7 @@
             <h4 class="modal-title" id="title_modal" name="title_modal"></h4>
         </div>
         <div class="modal-body">
-            <form class="mb-3" id="form_user" action="javascript:void(0)" method="post" enctype="multipart/form-data">
+            <form class="mb-3" id="form_travel" action="javascript:void(0)" method="post" enctype="multipart/form-data">
                 <div class="row" id="customSwitch_status">
                     <div class="col-sm-12">
                         <div class="form-group" id="customSwitch">
@@ -20,11 +20,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label>ชื่อผู้หมวดหมู่</label>
-                            <input type="text" class="form-control" placeholder="กรอกชื่อหมวดหมู่" id="category_name"
-                                name="category_name" required>
+                            <input type="text" class="form-control" placeholder="กรอกชื่อหมวดหมู่" id="name_travel"
+                                name="name_travel" required>
                         </div>
                     </div>
                 </div>
@@ -44,10 +44,10 @@
         $(".overlay").hide();
     });
 
-    $("#form_user").on('submit', function (e) {
+    $("#form_travel").on('submit', function (e) {
         e.preventDefault();
         const urlRouteInput = document.getElementById("url_route");
-        // action_(urlRouteInput.value, 'form_user');
+        action_(urlRouteInput.value, 'form_travel');
     });
 </script>
 <script>

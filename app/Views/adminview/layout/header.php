@@ -213,7 +213,6 @@
     <script src="<?= base_url('dist/js/demo.js'); ?>"></script>
     <!-- SweetAlert2 -->
     <script src="<?= base_url('dist/sweetalert/sweetalert2.js'); ?>"></script>
-
     <!-- DataTables  & Plugins -->
     <script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js'); ?>"></script>
     <script src="<?= base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'); ?>"></script>
