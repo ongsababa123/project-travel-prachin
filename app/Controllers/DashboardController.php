@@ -15,6 +15,15 @@ class DashboardController extends BaseController
     {
         echo view('adminview/login');
     }
+
+    //หน้าโปรไฟล์
+    public function index_profile()
+    {
+        $UserModels = new UserModels();
+        $data['data_user'] = $UserModels->where('id_user', session()->get('id_user'))->find();
+        echo view('adminview/layout/header');
+        echo view('adminview/profile', $data);
+    }
     //หน้าหลัก
     public function index_dashboard()
     {

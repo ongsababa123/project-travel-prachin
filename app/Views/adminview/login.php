@@ -76,7 +76,7 @@
                         <form class="mb-3" id="login_form" action="javascript:void(0)" method="post"
                             enctype="multipart/form-data">
                             <label>อีเมล</label>
-                            <input type="text" class="form-control" placeholder="อีเมล" id="email" name="email"
+                            <input type="text" class="form-control" placeholder="อีเมล" id="email_user" name="email_user"
                                 required>
                             <label>รหัสผ่าน</label>
                             <input type="password" class="form-control" placeholder="รหัสผ่าน" id="password"
@@ -120,7 +120,7 @@
 
         $("#login_form").on('submit', function (e) {
             e.preventDefault();
-            action_('login/auth', 'login_form');
+            action_('dashboard/auth/login', 'login_form');
         });
     </script>
     <script>
@@ -155,7 +155,7 @@
                         });
                         setTimeout(() => {
                             if (response.reload) {
-                                window.location.href = '<?= site_url() ?>' + response.type;
+                                window.location.href = '<?= base_url('dashboard/index') ?>';
                             }
                         }, 2000);
                     } else {

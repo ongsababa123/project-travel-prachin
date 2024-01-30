@@ -25,11 +25,7 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'authGuard' => \App\Filters\AuthGuard::class,
-        'CartCheck' => \App\Filters\CartCheck::class,
-        'HistoryCheck' => \App\Filters\HistoryCheck::class,
-        'PromotionCheck' => \App\Filters\PromotionCheck::class,
-        'ISLogin' => \App\Filters\ISLogin::class,
+        'AuthGuard' => \App\Filters\AuthGuard::class,
     ];
 
     /**

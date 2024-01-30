@@ -81,8 +81,7 @@
                             aria-haspopup="true" aria-expanded="false">
                             <img class="img-circle" src="<?= base_url('dist/img/avatar6.png'); ?>" alt="User Image">
                             <span class="username">
-                                <?= session()->get('name') . ' ' . session()->get('lastname') ?>
-                                จิลายุทธ บัณฑิต
+                                <?= session()->get('name_user') . ' ' . session()->get('lastname_user') ?>
                             </span>
                             <span class="description">แอดมิน</span>
                         </a>
@@ -93,7 +92,7 @@
                                 ข้อมูลส่วนตัว
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="nav-link" href="<?= site_url('/logout'); ?>" role="button">
+                            <a class="nav-link" href="<?= site_url('/dashboard/auth/logout'); ?>" role="button">
                                 <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
                             </a>
                         </div>
@@ -249,7 +248,5 @@
             });
         })
     </script>
-
     <body>
-
 </html>

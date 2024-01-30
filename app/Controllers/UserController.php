@@ -57,11 +57,12 @@ class UserController extends BaseController
     }
 
     //ฟังชั่นแก้ไขข้อมูลผู้ใช้
-    public function edit_user($id_user = null)
+    public function edit_user($id_user = null, $type = null)
     {
         helper(['form']);
         $userModels = new UserModels();
         $status = $this->request->getVar('customSwitch3') === 'on' ? 1 : 0;
+
         $password = $this->request->getVar('password');
         $rules = [
             'name_user' => 'required|min_length[2]|max_length[200]',
@@ -77,8 +78,13 @@ class UserController extends BaseController
                 'name_user' => $this->request->getVar('name_user'),
                 'lastname_user' => $this->request->getVar('lastname_user'),
                 'phone' => $this->request->getVar('phone'),
-                'status_user' => $status
             ];
+            if ($type != '1') {
+                $data_status = [
+                    'status_user' => $status
+                ];
+                $data = array_merge($data, $data_status);
+            }
             if ($password === '' || $password === null) {
                 $response = [
                     'success' => true,
@@ -92,6 +98,17 @@ class UserController extends BaseController
                 $data = array_merge($data, $passdata);
             }
             $check = $userModels->update($id_user, $data);
+            if ($type == '1') {
+                $data_update = $userModels->where('id_user', $id_user)->first();
+                $ses_data = [
+                    'id_user' => $data_update['id_user'],
+                    'name_user' => $data_update['name_user'],
+                    'lastname_user' => $data_update['lastname_user'],
+                    'isLoggedIn' => TRUE
+                ];
+                $session = session();
+                $session->set($ses_data);
+            }
             if (!$check) {
                 $response = [
                     'success' => false,
@@ -111,7 +128,8 @@ class UserController extends BaseController
         return $this->response->setJSON($response);
     }
 
-    public function delete_user($id_user = null){
+    public function delete_user($id_user = null)
+    {
         $userModels = new UserModels();
         $check = $userModels->where('id_user', $id_user)->delete($id_user);
         if ($check) {
@@ -120,7 +138,7 @@ class UserController extends BaseController
                 'message' => 'ลบข้อมูลสำเร็จ',
                 'reload' => true,
             ];
-        }else{
+        } else {
             $response = [
                 'success' => false,
                 'message' => 'error',
@@ -134,6 +152,7 @@ class UserController extends BaseController
     public function get_data_table_user()
     {
         $UserModels = new UserModels();
+        $id_user = session()->get('id_user');
 
         $limit = $this->request->getVar('length');
         $start = $this->request->getVar('start');
@@ -142,25 +161,32 @@ class UserController extends BaseController
 
         if (!empty($searchValue)) {
             $UserModels->groupStart()
-                ->like('email_user', $searchValue) // แทน 'column1', 'column2', ... ด้วยชื่อคอลัมน์ที่คุณต้องการค้นหา
+                ->like('email_user', $searchValue)
                 ->orLike('name_user', $searchValue)
                 ->orLike('lastname_user', $searchValue)
                 ->orLike('phone', $searchValue)
-                // เพิ่มคอลัมน์เพิ่มเติมตามที่ต้องการค้นหา
                 ->groupEnd();
         }
+
+        // Exclude records where id_user is equal to the value from the session
+        $UserModels->where('id_user !=', $id_user);
+
         $totalRecords = $UserModels->countAllResults();
 
         $recordsFiltered = $totalRecords;
+
         if (!empty($searchValue)) {
             $UserModels->groupStart()
-                ->like('email_user', $searchValue) // แทน 'column1', 'column2', ... ด้วยชื่อคอลัมน์ที่คุณต้องการค้นหา
+                ->like('email_user', $searchValue)
                 ->orLike('name_user', $searchValue)
                 ->orLike('lastname_user', $searchValue)
                 ->orLike('phone', $searchValue)
-                // เพิ่มคอลัมน์เพิ่มเติมตามที่ต้องการค้นหา
                 ->groupEnd();
         }
+
+        // Exclude records where id_user is equal to the value from the session
+        $UserModels->where('id_user !=', $id_user);
+
         $data = $UserModels->findAll($limit, $start);
 
         $response = [
@@ -174,4 +200,60 @@ class UserController extends BaseController
         return $this->response->setJSON($response);
     }
 
+
+    public function loginAuth()
+    {
+        $session = session();
+        $UserModels = new UserModels();
+        $email_user = $this->request->getVar('email_user');
+        $password = $this->request->getVar('password');
+        $data = $UserModels->where('email_user', $email_user)->first();
+        if ($data) {
+            $pass = $data['password'];
+            $authenticatePassword = password_verify($password, $pass);
+            if ($authenticatePassword) {
+                if ($data['status_user'] === '1') {
+                    $ses_data = [
+                        'id_user' => $data['id_user'],
+                        'name_user' => $data['name_user'],
+                        'lastname_user' => $data['lastname_user'],
+                        'isLoggedIn' => TRUE
+                    ];
+                    $session->set($ses_data);
+                    $response = [
+                        'success' => true,
+                        'message' => 'เข้าสู่ระบบสำเร็จ',
+                        'reload' => true,
+                    ];
+                } else {
+                    $response = [
+                        'success' => false,
+                        'message' => 'บัญชีผู้ใช้นี้ถูกระงับ',
+                        'reload' => false,
+                    ];
+                }
+            } else {
+                $response = [
+                    'success' => false,
+                    'message' => 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
+                    'reload' => false,
+                ];
+            }
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
+                'reload' => false,
+            ];
+        }
+        return $this->response->setJSON($response);
+    }
+    //ออกจากระบบ
+    public function logout()
+    {
+        $session = session();
+        $session->destroy();
+
+        return redirect()->to('/dashboard/login');
+    }
 }

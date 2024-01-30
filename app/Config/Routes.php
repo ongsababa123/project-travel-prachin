@@ -15,17 +15,20 @@ $routes->group("/", function ($routes) {
     $routes->match(['get', 'post'], 'new', 'HomeController::index_new'); //หน้าข่าวทั้งหมด
 });
 
-$routes->group("/dashboard", function ($routes) {
-    $routes->match(['get', 'post'], 'login', 'DashboardController::index_login'); //หน้าล็อคอิน
-    $routes->match(['get', 'post'], 'profile', 'DashboardController::index_profile'); //หน้าโปรไฟล์
+$routes->match(['get', 'post'], 'dashboard/login', 'DashboardController::index_login'); //หน้าล็อคอิน
+$routes->match(['get', 'post'], 'dashboard/auth/login', 'UserController::loginAuth'); //หน้าล็อคอิน
+$routes->match(['get', 'post'], 'dashboard/auth/logout', 'UserController::logout'); //หน้าล็อคอิน
+$routes->group("/dashboard", ['filter' => ['AuthGuard']], function ($routes) {
+
+    $routes->match(['get', 'post'], 'profile/index', 'DashboardController::index_profile'); //หน้าโปรไฟล์
     $routes->match(['get', 'post'], 'index', 'DashboardController::index_dashboard'); //หน้าหลักหลังบ้าน
 
     //--ผู้ใช้้--//
     $routes->match(['get', 'post'], 'user/index', 'DashboardController::index_user'); //หน้าแสดงข้อมูลผู้ใช้
     $routes->match(['get', 'post'], 'user/getdata', 'UserController::get_data_table_user'); //หน้าแสดงข้อมูลผู้ใช้
     $routes->match(['get', 'post'], 'user/create', 'UserController::create_user'); //ฟังชั่น เพิ่ม ผู้ใช้
-    $routes->match(['get', 'post'], 'user/edit/(:num)', 'UserController::edit_user/$1'); //ฟังชั่น แก้ไข ผู้ใช้
-    $routes->match(['get', 'post'], 'user/delete/(:num)', 'UserController::delete_user/$1'); //ฟังชั่น ลบ ผู้ใช้
+    $routes->match(['get', 'post'], 'user/edit/(:num)/(:num)', 'UserController::edit_user/$1/$2'); //ฟังชั่น แก้ไข ผู้ใช้ (ไอดีผู้ใช้/ประเภท)
+    $routes->match(['get', 'post'], 'user/delete/(:num)', 'UserController::delete_user/$1'); //ฟังชั่น ลบ ผู้ใช้ (ไอดีผู้ใช้)
 
     //--บทความ--//
     $routes->match(['get', 'post'], 'article/index', 'DashboardController::index_article_all'); //หน้าแสดงบทความทั้งหมด

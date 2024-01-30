@@ -78,11 +78,12 @@
     <script>
         function load_modal(load_check, data_encode) {
             crud_user = document.getElementById("crud_user");
-            $(".modal-body #name").val('');
-            $(".modal-body #last").val('');
-            $(".modal-body #email").val('');
+            $(".modal-body #name_user").val('');
+            $(".modal-body #lastname_user").val('');
+            $(".modal-body #email_user").val('');
             $(".modal-body #phone").val('');
             $(".modal-body #password").val('');
+
             $('#showPassword').prop('checked', false);
             removeAlert();
 
@@ -122,7 +123,7 @@
 
                 $(".modal-header #title_modal").text("จัดการผู้ใช้งาน");
                 $(".modal-footer #submit").text("บันทึกข้อมูล");
-                $(".modal-body #url_route").val("dashboard/user/edit/" + rowData.id_user);
+                $(".modal-body #url_route").val("dashboard/user/edit/" + rowData.id_user + "/0");
             }
         }
     </script>
@@ -238,7 +239,6 @@
                 },
                 success: function (response) {
                     Swal.close();
-                    console.log(response);
                     if (response.success) {
                         Swal.fire({
                             title: response.message,
