@@ -28,13 +28,13 @@
     }
 
     .card-register {
-        background-color: #6ec7e0;
+        background-color: #86d9ab;
     }
 </style>
 
 <body class="register-page sidebar-collapse">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top bg-info">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-info" color-on-scroll="300">
         <div class="container">
             <div class="navbar-translate">
                 <a class="navbar-brand" href="<?= site_url('/') ?>" rel="tooltip" title="Coded by Creative Tim"
@@ -66,15 +66,13 @@
             </div>
         </div>
     </nav>
-    <div class="page-header">
+    <div class="page-header" style="background-image: url('<?= base_url('dist/img/background2.jpg') ?>');">
         <div class="filter"></div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 ml-auto mr-auto ">
                     <div class="card card-register">
                         <h1 class="title mx-auto">เข้าสู่ระบบ</h1>
-                        <div class="social-line text-center">
-                        </div>
                         <form class="mb-3" id="login_form" action="javascript:void(0)" method="post"
                             enctype="multipart/form-data">
                             <label>อีเมล</label>

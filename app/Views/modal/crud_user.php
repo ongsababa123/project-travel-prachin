@@ -1,0 +1,182 @@
+<style>
+    .no-arrow {
+        -moz-appearance: textfield;
+    }
+
+    .no-arrow::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    .no-arrow::-webkit-outer-spin-button,
+    .no-arrow::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="overlay preloader">
+            <i class="fas fa-2x fa-sync fa-spin"></i>
+        </div>
+        <div class="modal-header bg-info">
+            <h4 class="modal-title" id="title_modal" name="title_modal"></h4>
+        </div>
+        <div class="modal-body">
+            <form class="mb-3" id="form_user" action="javascript:void(0)" method="post" enctype="multipart/form-data">
+                <div class="row" id="customSwitch_status">
+                    <div class="col-sm-12">
+                        <div class="form-group" id="customSwitch">
+                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch3"
+                                    name="customSwitch3" onclick="change_status()">
+                                <label class="custom-control-label" for="customSwitch3" id="LabelcustomSwitch3"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>ชื่อผู้ใช้</label>
+                            <input type="text" class="form-control" placeholder="กรอกชื่อสมาชิก" id="name_user" name="name_user"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>นามสกุลผู้ใช้</label>
+                            <input type="text" class="form-control" placeholder="กรอกนามสกุลสมาชิก" id="lastname_user"
+                                name="lastname_user" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>อีเมล</label>
+                    <input type="email" class="form-control" placeholder="กรอกอีเมล" id="email_user" name="email_user" required>
+                </div>
+                <div class="form-group">
+                    <label>เบอร์โทรศัพท์</label>
+                    <input id="phone" name="phone" class="no-arrow form-control"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        type="number" maxlength="10" placeholder="กรอกเบอร์โทรศัพท์" required />
+                </div>
+                <div class="form-group" id="password_group">
+                    <label>รหัสผ่าน</label>
+                    <div class="form-check" id="changePasswordCheckbox">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">เปลี่ยนรหัสผ่าน</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="password" class="form-control" id="password"
+                            placeholder="กรอกรหัสผ่าน">
+                    </div>
+                    <div class="form-check" id="showPasswordCheckbox____" name="showPasswordCheckbox____">
+                        <input type="checkbox" class="form-check-input" id="showPassword">
+                        <label class="form-check-label" for="showPassword">แสดงรหัสผ่าน</label>
+                    </div>
+                </div>
+                <input type="text" id="url_route" name="url_route" hidden>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" name="submit" value="Submit" id="submit"></button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="<?= base_url('plugins/bs-custom-file-input/bs-custom-file-input.min.js'); ?>"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".overlay").hide();
+    });
+
+    $("#form_user").on('submit', function (e) {
+        e.preventDefault();
+        const urlRouteInput = document.getElementById("url_route");
+        action_(urlRouteInput.value, 'form_user');
+    });
+</script>
+<script>
+    $("#exampleCheck1").on('click', function () {
+        if ($(this).is(':checked')) {
+            $("#password").prop("disabled", false);
+            $('#submit').prop('disabled', true);
+            $('#showPasswordCheckbox____').show();
+        } else {
+            $("#password").prop("disabled", true);
+            $('#submit').prop('disabled', false);
+            $("#password").val("");
+            $('#showPasswordCheckbox____').hide();
+            removeAlert();
+        }
+    })
+</script>
+<script>
+    function change_status() {
+        const isChecked = document.getElementById("customSwitch3").checked;
+        if (isChecked) {
+            $(".modal-body #LabelcustomSwitch3").text("เปิดใช้งาน");
+        } else {
+            $(".modal-body #LabelcustomSwitch3").text("ปิดใช้งาน");
+        }
+    }
+</script>
+<script>
+    document.getElementById('password').addEventListener('input', function () {
+        // Remove any existing alert
+        removeAlert();
+
+        if (this.value.length < 8) {
+            // Create and append a danger alert
+            createAlert('danger', 'รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร');
+            $('#submit').prop('disabled', true);
+        } else {
+            // Check for special characters
+            if (!/[^\w\s]/.test(this.value)) {
+                // Create and append a success alert
+
+                if (/^(?=.*\d)(?=.*[a-zA-Z])/.test(this.value)) {
+                    removeAlert();
+                    $('#submit').prop('disabled', false);
+                } else {
+                    createAlert('danger', 'รหัสผ่านจะต้องมีตัวอักษร และตัวเลข');
+                    $('#submit').prop('disabled', true);
+                }
+            } else {
+                createAlert('danger', 'รหัสผ่านห้ามใช้เครื่องหมายพิเศษ');
+                $('#submit').prop('disabled', true);
+            }
+        }
+    });
+
+    function createAlert(type, message) {
+        var alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-' + type + ' alert-dismissible';
+        alertDiv.innerHTML = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
+            '<h5><i class="icon fas fa-ban"></i> Alert!</h5>' +
+            message;
+
+        document.body.appendChild(alertDiv);
+        $('#password_group').append(alertDiv);
+    }
+
+    function removeAlert() {
+        var existingAlert = document.querySelector('.alert');
+        if (existingAlert) {
+            existingAlert.parentNode.removeChild(existingAlert);
+        }
+    }
+</script>
+<script>
+    const passwordInput = document.getElementById('password');
+    const showPasswordCheckbox = document.getElementById('showPassword');
+
+    showPasswordCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+            passwordInput.type = 'text';
+        } else {
+            passwordInput.type = 'password';
+        }
+    });
+</script>

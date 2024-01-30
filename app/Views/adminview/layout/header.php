@@ -18,6 +18,11 @@
     <link rel="stylesheet" href="<?= base_url('plugins/datatables-responsive/css/responsive.bootstrap4.min.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('plugins/datatables-buttons/css/buttons.bootstrap4.min.css'); ?>">
     <link rel="icon" href="<?= base_url('dist/img/icon/favicon.ico') ?>" type="image/gif">
+    <link rel="stylesheet" href="<?= base_url('plugins/ekko-lightbox/ekko-lightbox.css'); ?>">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="<?= base_url('plugins/select2/css/select2.min.css'); ?>">
+    <!-- summernote -->
+    <link rel="stylesheet" href="<?= base_url('plugins/summernote/summernote-bs4.min.css'); ?>">
 </head>
 <style>
     /* เพิ่ม CSS ในส่วนนี้เพื่อกำหนดฟอนต์ให้กับทุกส่วนของหน้าเว็บไซต์ */
@@ -39,6 +44,15 @@
 
     .table thead th {
         border-bottom: none;
+    }
+
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 40px;
+        user-select: none;
+        -webkit-user-select: none;
     }
 </style>
 
@@ -98,7 +112,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="<?= site_url('/dashboard/index'); ?>" class="brand-link">
-                <span class="brand-text ml-1">ระบบการจัดการ ร้านบางเล่ม</span>
+                <span class="brand-text ml-1 ">ระบบการจัดการ</span>
             </a>
             <!-- Sidebar -->
             <div class="sidebar">
@@ -118,9 +132,9 @@
                         <div>
                             <hr>
                         </div>
-                        <li class="nav-header">ระบบการจัดการสมาชิก</li>
+                        <li class="nav-header">ระบบการจัดการ สมาชิก</li>
                         <li class="nav-item">
-                            <a href="<?= site_url('/dashboard/customer/index'); ?>" class="nav-link">
+                            <a href="<?= site_url('/dashboard/user/index'); ?>" class="nav-link">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>
                                     ข้อมูลสมาชิก
@@ -130,36 +144,48 @@
                         <div>
                             <hr>
                         </div>
-                        <li class="nav-header">การจัดการระบบ</li>
+                        <li class="nav-header">ระบบการจัดการ บทความ</li>
                         <li class="nav-item">
-                            <a href="<?= site_url('/dashboard/book/index'); ?>" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    เพิ่มบทความ
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= site_url('/dashboard/history/index'); ?>" class="nav-link">
-                                <i class="nav-icon fas fa-history"></i>
-                                <p>
-                                    การจัดการหมวดหมู่
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= site_url('/dashboard/category/index'); ?>" class="nav-link">
-                                <i class="nav-icon fas fa-bookmark"></i>
+                            <a href="<?= site_url('/dashboard/article/index'); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-newspaper"></i>
                                 <p>
                                     การจัดการบทความ
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= site_url('/dashboard/book/stock_all/index'); ?>" class="nav-link">
-                                <i class="nav-icon fas fa-cubes"></i>
+                            <a href="<?= site_url('/dashboard/article/add/index'); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-plus-square"></i>
+                                <p>
+                                    เพิ่มบทความ
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= site_url('/dashboard/category/index'); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-th-list"></i>
+                                <p>
+                                    การจัดการหมวดหมู่
+                                </p>
+                            </a>
+                        </li>
+                        <div>
+                            <hr>
+                        </div>
+                        <li class="nav-header">ระบบการจัดการ ข่าวสาร</li>
+                        <li class="nav-item">
+                            <a href="<?= site_url('/dashboard/news/index'); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-scroll"></i>
                                 <p>
                                     การจัดการข่าวสาร
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= site_url('/dashboard/news/add/index'); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>
+                                    เพิ่มข่าวสาร
                                 </p>
                             </a>
                         </li>
@@ -202,6 +228,27 @@
     <script src="<?= base_url('plugins/datatables-buttons/js/buttons.html5.min.js'); ?>"></script>
     <script src="<?= base_url('plugins/datatables-buttons/js/buttons.print.min.js'); ?>"></script>
     <script src="<?= base_url('plugins/datatables-buttons/js/buttons.colVis.min.js'); ?>"></script>
+    <script src="<?= base_url('plugins/filterizr/jquery.filterizr.min.js') ?>"></script>
+    <script src="<?= base_url('plugins/ekko-lightbox/ekko-lightbox.min.js') ?>"></script>
+    <!-- Select2 -->
+    <script src="<?= base_url('plugins/select2/js/select2.full.min.js'); ?>"></script>
+    <!-- Summernote -->
+    <script src="<?= base_url('plugins/summernote/summernote-bs4.min.js'); ?>"></script>
+    <script>
+        $(function () {
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
+            });
+
+            $('.btn[data-filter]').on('click', function () {
+                $('.btn[data-filter]').removeClass('active');
+                $(this).addClass('active');
+            });
+        })
+    </script>
 
     <body>
 

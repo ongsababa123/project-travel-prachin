@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-10">
                 <div class="row" data-aos="fade-right">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
                                 <h2 style="font-weight: bold;">ทริป 1 วัน ไหว้พระ 9 วัดในกรุงเทพฯ ขอพรให้ดวงพุ่ง
@@ -31,8 +31,6 @@
                                 <h5><i class="fas fa-clock"></i> 10 ม.ค. 2567</h5>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
                     </div>
                 </div>
             </div>
@@ -44,7 +42,7 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-8" data-aos="fade-right">
+                    <div class="col-md-9" data-aos="fade-right">
                         <div class="card">
                             <div class="card-body">
                                 <h5>เริ่มต้นปีให้ดีก็ต้องเสริมโชคลาภ เดินทางสายมู ตระเวนไหว้พระกันสักหน่อย
@@ -60,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 text-center mt-5" data-aos="fade-left">
+                    <div class="col-md-3 text-center mt-0" data-aos="fade-left">
                         <div class="card">
                             <div class="card-body">
                                 <h4 style="font-weight: bold;">บทความยอดนิยม</h4>
