@@ -40,17 +40,17 @@ function formatDate($dateString)
         <h2 class="title" style="font-weight: bold;">
             <?= $text_type_page ?>
         </h2>
-        <div class="row">
+        <div class="row" data-aos="zoom-in">
             <div class="col-md-1">
             </div>
             <div class="col-md-10" id="load_data">
                 <?php $count_per_page = 0; ?>
-                <div class="row" data-aos="zoom-in">
+                <div class="row">
                     <?php if ($article_data != null): ?>
                         <?php foreach ($article_data as $key_article => $value_article): ?>
                             <?php if ($count_per_page == 4): ?>
                             </div>
-                            <div class="row" data-aos="zoom-in">
+                            <div class="row">
                                 <?php $count_per_page = 0; ?>
                             <?php endif; ?>
                             <div class="col-md-3">
@@ -87,7 +87,7 @@ function formatDate($dateString)
                             <?php $count_per_page++; ?>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <div class="container" data-aos="zoom-in">
+                        <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
@@ -104,7 +104,7 @@ function formatDate($dateString)
                 </div>
             </div>
             <div class="col-md-10" id="load_more">
-                <div class="row" data-aos="zoom-in">
+                <div class="row">
                     <div class="col-md-3">
                         <div class="ph-item" style="height: 30rem; border-radius: 10px">
                             <div class="ph-col-12">
@@ -217,11 +217,10 @@ function formatDate($dateString)
 <script>
     $('#load_data').hide();
     $('#load_more').show();
-    $(document).ready(function () {
+    window.onload = function () {
         setTimeout(function () {
             $('#load_data').show();
             $('#load_more').hide();
         }, 1000);
-
-    });
+    }
 </script>

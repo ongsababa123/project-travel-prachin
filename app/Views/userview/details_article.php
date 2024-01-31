@@ -72,8 +72,8 @@ function formatDate($dateString)
             <div class="col-md-1">
             </div>
             <div class="col-md-10" id="article_detail_data">
-                <div class="row" data-aos="fade-right">
-                    <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-9" data-aos="fade-right">
                         <div class="card">
                             <div class="card-body">
                                 <h4 style="font-weight: bold;" class="text-center">
@@ -82,7 +82,9 @@ function formatDate($dateString)
                                 <blockquote class="blockquote mb-0">
                                 </blockquote>
                                 <br>
-                                <h5><?= $article_data['detail'] ?></h5>
+                                <h5>
+                                    <?= $article_data['detail'] ?>
+                                </h5>
                                 <blockquote class="blockquote mb-0">
                                 </blockquote>
                                 <br>
@@ -224,12 +226,12 @@ function formatDate($dateString)
         $('#article_detail_data').hide();
         $('#article_topic_load').show();
         $('#article_detail_load').show();
-        $(document).ready(function () {
+        window.onload = function () {
             setTimeout(function () {
                 $('#article_topic_data').show();
                 $('#article_detail_data').show();
                 $('#article_topic_load').hide();
                 $('#article_detail_load').hide();
             }, 1000);
-        });
+        }
     </script>
