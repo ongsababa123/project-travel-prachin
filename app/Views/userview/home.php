@@ -1,3 +1,15 @@
+<?php
+function formatDate($dateString)
+{
+    $date = new DateTime($dateString);
+    $formattedDate = $date->format('j M Y');
+    // 'j' - Day of the month without leading zeros
+    // 'M' - Three letter representation of a month
+    // 'Y' - Four digit representation for the year
+
+    return $formattedDate;
+}
+?>
 <title>หน้าหลัก</title>
 
 <!-- End Navbar -->
@@ -19,84 +31,38 @@
         <div class="container">
             <h2 class="title" style="font-weight: bold;">บทความยอดนิยม</h2>
             <div class="row" data-aos="zoom-in">
-                <div class="col-md-4">
-                    <a href="<?= base_url('article/detail') ?>">
-                        <div class="card" style="width: 20rem;">
-                            <img class="card-img-top" src="https://source.unsplash.com/random/200x200?sig=1"
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                    เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                <blockquote class="blockquote mb-0">
-                                </blockquote>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <i class="fas fa-eye"></i> 22
+                <?php foreach ($article_data_topview as $value_article): ?>
+                    <div class="col-md-4">
+                        <a
+                            href="<?= base_url('article/detail/' . $value_article->id_article . '/' . $value_article->id_type_travel) ?>">
+                            <div class="card" style="width: 20rem;">
+                                <img class="card-img-top" src="data:image/jpeg;base64,<?= $value_article->pic_topic ?>"
+                                    alt="Card image cap">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <?= $value_article->topic ?>
+                                    </p>
+                                    <blockquote class="blockquote mb-0">
+                                    </blockquote>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <i class="fas fa-clock"></i>
+                                            <?= formatDate($value_article->data_create) ?>
+                                        </div>
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <i class="fas fa-eye"></i>
+                                            <?= $value_article->view_count ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="<?= base_url('article/detail') ?>">
-                        <div class="card" style="width: 20rem;">
-                            <img class="card-img-top" src="https://source.unsplash.com/random/200x200?sig=1"
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                    เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                <blockquote class="blockquote mb-0">
-                                </blockquote>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <i class="fas fa-eye"></i> 22
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="<?= base_url('article/detail') ?>">
-                        <div class="card" style="width: 20rem;">
-                            <img class="card-img-top" src="https://source.unsplash.com/random/200x200?sig=1"
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                    เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                <blockquote class="blockquote mb-0">
-                                </blockquote>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <i class="fas fa-eye"></i> 22
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
@@ -144,87 +110,38 @@
         <div class="container">
             <h2 class="title" style="font-weight: bold;">บทความล่าสุด</h2>
             <div class="row" data-aos="zoom-in">
-                <div class="col-md-4">
-                    <a href="<?= base_url('article/detail') ?>">
-                        <div class="card" style="width: 20rem;">
-                            <img class="card-img-top" src="https://source.unsplash.com/random/200x200?sig=1"
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                    เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                <blockquote class="blockquote mb-0">
-                                </blockquote>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <i class="fas fa-eye"></i> 22
+                <?php foreach ($article_data_last as $value_article_last): ?>
+                    <div class="col-md-4">
+                        <a
+                            href="<?= base_url('article/detail/' . $value_article_last->id_article . '/' . $value_article_last->id_type_travel) ?>">
+                            <div class="card" style="width: 20rem;">
+                                <img class="card-img-top" src="data:image/jpeg;base64,<?= $value_article_last->pic_topic ?>"
+                                    alt="Card image cap">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <?= $value_article_last->topic ?>
+                                    </p>
+                                    <blockquote class="blockquote mb-0">
+                                    </blockquote>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <i class="fas fa-clock"></i>
+                                            <?= formatDate($value_article_last->data_create) ?>
+                                        </div>
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <i class="fas fa-eye"></i>
+                                            <?= $value_article_last->view_count ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="<?= base_url('article/detail') ?>">
-                        <div class="card" style="width: 20rem;">
-                            <img class="card-img-top" src="https://source.unsplash.com/random/200x200?sig=1"
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                    เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                <blockquote class="blockquote mb-0">
-                                </blockquote>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <i class="fas fa-eye"></i> 22
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="<?= base_url('article/detail') ?>">
-                        <div class="card" style="width: 20rem;">
-                            <img class="card-img-top" src="https://source.unsplash.com/random/200x200?sig=1"
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                    เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                <blockquote class="blockquote mb-0">
-                                </blockquote>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                    </div>
-                                    <div class="col-md-4">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <i class="fas fa-eye"></i> 22
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
-    <script>
-        AOS.init();
-    </script>

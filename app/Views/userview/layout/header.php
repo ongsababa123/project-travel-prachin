@@ -17,6 +17,7 @@
     <link href="<?= base_url('assets/demo/demo.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('assets/demo/demo.css') ?>" rel="stylesheet" />
     <link href="<?= base_url('aos-master/dist/aos.css') ?>" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
 </head>
 <style>
     * {
@@ -26,7 +27,10 @@
     .dropdown:hover .dropdown-menu {
         display: block;
     }
-
+    .card-img-top {
+        width: 100%;
+        max-height: 200px;
+    }
     
 </style>
 

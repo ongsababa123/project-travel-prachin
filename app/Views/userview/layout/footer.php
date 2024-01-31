@@ -4,9 +4,6 @@
             <nav class="footer-nav">
                 <ul>
                     <li>
-                        <a style="color: white;">ติดต่อเรา</a>
-                    </li>
-                    <li>
                         <a href="<?= base_url('/') ?>" style="color: white;"><i class="fab fa-facebook"> </i>
                             ท่องเที่ยวปราจีน</a>
                     </li>

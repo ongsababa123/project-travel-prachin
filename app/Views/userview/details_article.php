@@ -1,5 +1,18 @@
-<title>บทความ ___</title>
+<title>
+    <?= $article_data['topic'] ?>
+</title>
+<?php
+function formatDate($dateString)
+{
+    $date = new DateTime($dateString);
+    $formattedDate = $date->format('j M Y');
+    // 'j' - Day of the month without leading zeros
+    // 'M' - Three letter representation of a month
+    // 'Y' - Four digit representation for the year
 
+    return $formattedDate;
+}
+?>
 <!-- End Navbar -->
 
 <div class="page-header" data-parallax="true"
@@ -21,14 +34,32 @@
             </div>
             <div class="col-md-10">
                 <div class="row" data-aos="fade-right">
-                    <div class="col-md-12">
+                    <div class="col-md-12" id="article_topic_data">
                         <div class="card">
                             <div class="card-body">
-                                <h2 style="font-weight: bold;">ทริป 1 วัน ไหว้พระ 9 วัดในกรุงเทพฯ ขอพรให้ดวงพุ่ง
-                                    รุ่งโรจน์ตลอดปี 2567</h2>
+                                <h2 style="font-weight: bold;">
+                                    <?= $article_data['topic'] ?>
+                                </h2>
                                 <br>
-                                <h5><i class="fas fa-eye"></i> 667 ครั้ง</h5>
-                                <h5><i class="fas fa-clock"></i> 10 ม.ค. 2567</h5>
+                                <h5><i class="fas fa-eye"></i>
+                                    <?= $article_data['view_count'] ?> ครั้ง
+                                </h5>
+                                <h5><i class="fas fa-clock"></i>
+                                    <?= formatDate($article_data['data_create']) ?>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="article_topic_load">
+                        <div class="ph-item" style="height: 8rem; border-radius: 10px">
+                            <div class="ph-col-12">
+                                <div class="ph-row">
+                                    <br>
+                                    <div class="ph-col-12 big"></div>
+                                    <div class="ph-col-4"></div>
+                                    <div class="ph-col-8 empty"></div>
+                                    <div class="ph-col-4"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -40,21 +71,55 @@
         <div class="row">
             <div class="col-md-1">
             </div>
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-md-9" data-aos="fade-right">
+            <div class="col-md-10" id="article_detail_data">
+                <div class="row" data-aos="fade-right">
+                    <div class="col-md-9">
                         <div class="card">
                             <div class="card-body">
-                                <h5>เริ่มต้นปีให้ดีก็ต้องเสริมโชคลาภ เดินทางสายมู ตระเวนไหว้พระกันสักหน่อย
-                                    ใครที่กำลังอยากได้แพลนไหว้พระ 9 วัด วันนี้ทริปเก็ทเตอร์ได้จัด ทริป 1 วัน ไหว้พระ 9
-                                    วัดในกรุงเทพฯ ขอพรให้ดวงพุ่ง รุ่งโรจน์ตลอดปี 2567
-                                    โดยทริปนี้เราจะเน้นไหว้พระรอบเกาะรัตนโกสินทร์
-                                    ซึ่งเป็นแหล่งรวมวัดดังและวัดความหมายดีมากมาย อีกทั้งยังอยู่ใกล้กัน เดินทางสะดวกสุดๆ
-                                    และทริปนี้เราจะบอกจุดต้องไหว้ในแต่ละวัด มาแล้วต้องไหว้อะไรหรือวัดนี้ช่วยเสริมอะไร
-                                    ถ้าอยากมูให้ปัง มีครบทุกด้านก็ตามมาดูกันเลยยย~</h5>
-                                <hr>
-                                <h4 style="font-weight: bold;" class="text-center">ทริป 1 วัน ไหว้พระ 9 วัดในกรุงเทพฯ
-                                    ขอพรให้ดวงพุ่ง รุ่งโรจน์ตลอดปี 2567</h4>
+                                <h4 style="font-weight: bold;" class="text-center">
+                                    <?= $article_data['topic'] ?>
+                                </h4>
+                                <blockquote class="blockquote mb-0">
+                                </blockquote>
+                                <br>
+                                <h5><?= $article_data['detail'] ?></h5>
+                                <blockquote class="blockquote mb-0">
+                                </blockquote>
+                                <br>
+                                <ui>
+                                    <?php if ($article_data['google_link'] != null): ?>
+                                        <li style="font-size: 16px"><strong style="font-weight: bold;">Google Map :
+                                            </strong>&nbsp;<a href="<?= $article_data['google_link'] ?>" target="_blank"
+                                                style="color: blue;">
+                                                <?= $article_data['google_link'] ?>
+                                            </a></li>
+                                    <?php endif; ?>
+                                    <?php if ($article_data['location'] != null): ?>
+                                        <li style="font-size: 16px"><strong style="font-weight: bold;">สถานที่ :
+                                            </strong>&nbsp;<a>
+                                                <?= $article_data['location'] ?>
+                                            </a></li>
+                                    <?php endif; ?>
+                                    <?php if ($article_data['location_price'] != null): ?>
+                                        <li style="font-size: 16px"><strong style="font-weight: bold;">ค่าเข้าสถานที่ :
+                                            </strong>&nbsp;<a>
+                                                <?= $article_data['location_price'] ?>
+                                            </a></li>
+                                    <?php endif; ?>
+                                    <?php if ($article_data['face_book_name'] != null && $article_data['facebook_link'] != null): ?>
+                                        <li style="font-size: 16px"><strong style="font-weight: bold;">Facebook :
+                                            </strong>&nbsp;<a href="<?= $article_data['facebook_link'] ?>" target="_blank"
+                                                style="color: blue;">
+                                                <?= $article_data['face_book_name'] ?>
+                                            </a></li>
+                                    <?php endif; ?>
+                                    <?php if ($article_data['time_open'] != null): ?>
+                                        <li style="font-size: 16px"><strong style="font-weight: bold;">เวลาเปิด - ปิด :
+                                            </strong>&nbsp;<a>
+                                                <?= $article_data['time_open'] ?>
+                                            </a></li>
+                                    <?php endif; ?>
+                                </ui>
                             </div>
                         </div>
                     </div>
@@ -63,94 +128,87 @@
                             <div class="card-body">
                                 <h4 style="font-weight: bold;">บทความยอดนิยม</h4>
                                 <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="<?= base_url('article/detail') ?>">
-                                            <div class="card mx-auto" style="width: 20rem;" data-aos="fade-up">
-                                                <img class="card-img-top"
-                                                    src="https://source.unsplash.com/random/200x200?sig=1"
-                                                    alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                                        เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                                    <blockquote class="blockquote mb-0">
-                                                    </blockquote>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <div class="row">
-                                                        <div class="col-md-5">
-                                                            <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <i class="fas fa-eye"></i> 22
+                                <?php foreach ($article_data_topview as $value_article): ?>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a
+                                                href="<?= base_url('article/detail/' . $value_article->id_article . '/' . $value_article->id_type_travel) ?>">
+                                                <div class="card" style="width: 19rem;">
+                                                    <img class="card-img-top"
+                                                        src="data:image/jpeg;base64,<?= $value_article->pic_topic ?>"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <p class="card-text">
+                                                            <?= $value_article->topic ?>
+                                                        </p>
+                                                        <blockquote class="blockquote mb-0">
+                                                        </blockquote>
+                                                    </div>
+                                                    <div class="card-footer mb-2">
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <i class="fas fa-clock"></i>
+                                                                <?= formatDate($value_article->data_create) ?>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <i class="fas fa-eye"></i>
+                                                                <?= $value_article->view_count ?>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" id="article_detail_load">
+                <div class="row">
+                    <div class="col-md-9" data-aos="fade-right">
+                        <div class="ph-item" style="height: 17rem; border-radius: 10px">
+                            <div class="ph-col-12">
+                                <div class="ph-picture" style="height: 5rem; border-radius: 10px"></div>
+                                <blockquote class="blockquote mb-0">
+                                </blockquote>
+                                <br>
+                                <div class="ph-row">
+                                    <div class="ph-col-12 big"></div>
+                                    <div class="ph-col-4"></div>
+                                    <div class="ph-col-8 empty"></div>
+                                    <div class="ph-col-6"></div>
+                                    <div class="ph-col-6 empty"></div>
+                                    <div class="ph-col-12"></div>
                                 </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="<?= base_url('article/detail') ?>">
-                                            <div class="card mx-auto" style="width: 20rem;" data-aos="fade-up">
-                                                <img class="card-img-top"
-                                                    src="https://source.unsplash.com/random/200x200?sig=1"
-                                                    alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                                        เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                                    <blockquote class="blockquote mb-0">
-                                                    </blockquote>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <div class="row">
-                                                        <div class="col-md-5">
-                                                            <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <i class="fas fa-eye"></i> 22
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                <div class="ph-row">
+                                    <div class="ph-col-12"></div>
                                 </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="<?= base_url('article/detail') ?>">
-                                            <div class="card mx-auto" style="width: 20rem;" data-aos="fade-up">
-                                                <img class="card-img-top"
-                                                    src="https://source.unsplash.com/random/200x200?sig=1"
-                                                    alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                                        เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                                    <blockquote class="blockquote mb-0">
-                                                    </blockquote>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <div class="row">
-                                                        <div class="col-md-5">
-                                                            <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <i class="fas fa-eye"></i> 22
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center mt-0" data-aos="fade-left">
+                        <div class="ph-item" style="height: 30rem; border-radius: 10px">
+                            <div class="ph-col-12">
+                                <div class="ph-picture" style="height: 17rem; border-radius: 10px"></div>
+                                <br>
+                                <div class="ph-row">
+                                    <div class="ph-col-12 big"></div>
+                                    <div class="ph-col-4"></div>
+                                    <div class="ph-col-8 empty"></div>
+                                    <div class="ph-col-6"></div>
+                                    <div class="ph-col-6 empty"></div>
+                                    <div class="ph-col-12"></div>
+                                </div>
+                                <blockquote class="blockquote mb-0">
+                                </blockquote>
+                                <br>
+                                <div class="ph-row">
+                                    <div class="ph-col-12"></div>
                                 </div>
                             </div>
                         </div>
@@ -161,3 +219,17 @@
             </div>
         </div>
     </div>
+    <script>
+        $('#article_topic_data').hide();
+        $('#article_detail_data').hide();
+        $('#article_topic_load').show();
+        $('#article_detail_load').show();
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#article_topic_data').show();
+                $('#article_detail_data').show();
+                $('#article_topic_load').hide();
+                $('#article_detail_load').hide();
+            }, 1000);
+        });
+    </script>

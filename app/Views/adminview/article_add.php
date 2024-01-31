@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form class="mb-3" id="form_price_late" action="javascript:void(0)" method="post"
+                                <form class="mb-3" id="form_create_article" action="javascript:void(0)" method="post"
                                     enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-12 text-center">
@@ -74,12 +74,12 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>หัวข้อบทความ</label>
-                                                <textarea name="title" id="title" cols="5" rows="8"
-                                                    class="form-control"></textarea>
+                                                <textarea name="topic" id="topic" cols="5" rows="8" class="form-control"
+                                                    required></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label>เวลาเปิด-ปิด</label>
-                                                <textarea name="title" id="title" cols="5" rows="5"
+                                                <textarea name="time_open" id="time_open" cols="5" rows="5"
                                                     class="form-control"></textarea>
                                             </div>
                                         </div>
@@ -87,13 +87,19 @@
                                             <div class="form-group">
                                                 <label>หมวดหมู่</label>
                                                 <select class="form-control select2" style="width: 100%; height: 40px"
-                                                    id="category" name="category">
-                                                    <option selected="selected" value="">เลือกหมวดหมู่</option>
+                                                    id="id_type_travel" name="id_type_travel">
+                                                    <?php
+                                                    foreach ($data_type_travel as $key => $value): ?>
+                                                        <option selected="selected" value="<?= $value['id_type_travel'] ?>">
+                                                            <?= $value['name_travel'] ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label>ลิ้งค์ google map</label>
-                                                <input type="text" name="map" id="map" class="form-control">
+                                                <input type="text" name="google_link" id="google_link"
+                                                    class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label>สถานที่</label>
@@ -101,18 +107,19 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>ค่าเข้าสถานที่</label>
-                                                <input type="text" name="location" id="location" class="form-control">
+                                                <input type="text" name="location_price" id="location_price"
+                                                    class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <label>ชื่อ facebook</label>
-                                                        <input type="text" name="name_facebook" id="name_facebook"
+                                                        <input type="text" name="face_book_name" id="face_book_name"
                                                             class="form-control">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label>ลิ้งค์ facebook</label>
-                                                        <input type="text" name="link_facebook" id="link_facebook"
+                                                        <input type="text" name="facebook_link" id="facebook_link"
                                                             class="form-control">
                                                     </div>
                                                 </div>
@@ -122,14 +129,13 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <label>เนื้อหาในบทความ</label>
-                                            <textarea class="form-control" type="text" placeholder=""
-                                                name="topic_create" id="summernote1"></textarea>
+                                            <textarea class="form-control" type="text" placeholder="" name="detail"
+                                                id="summernote1"></textarea>
                                         </div>
                                     </div>
                                     <div class="card-footer text-center" id="btn_price_late">
                                         <button type="submit" class="btn btn-success" name="submit" value="Submit"
                                             id="submit">บันทึก</button>
-                                        <button type="button" class="btn btn-danger">ยกเลิก</button>
                                     </div>
                                 </form>
                             </div>
@@ -154,8 +160,25 @@
                     ['insert', ['picture']],
                 ],
                 placeholder: 'กรอกเนื้อหาในบทความ',
-            });
+            },);
         })
+
+        $("#form_create_article").on('submit', function (e) {
+            e.preventDefault();
+            const face_book_name = document.getElementById("face_book_name");
+            const facebook_link = document.getElementById("facebook_link");
+            console.log(face_book_name.value != '', facebook_link.value);
+            if (face_book_name.value != '' && facebook_link.value != '' || face_book_name.value == '' && facebook_link.value == '') {
+                action_('dashboard/article/create', 'form_create_article');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'กรุณากรอกชื่อ facebook และลิ้งค์ facebook',
+                    confirmButtonText: 'ตกลง',
+                    showConfirmButton: true
+                })
+            }
+        });
     </script>
     <script>
         function previewImage(input) {
@@ -171,5 +194,61 @@
             if (file) {
                 reader.readAsDataURL(file);
             }
+        }
+    </script>
+    <script>
+        function action_(url, form) {
+            var formData = new FormData(document.getElementById(form));
+            $.ajax({
+                url: '<?= base_url() ?>' + url,
+                type: "POST",
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "JSON",
+                beforeSend: function () {
+                    // Show loading indicator here
+                    var loadingIndicator = Swal.fire({
+                        title: 'กําลังดําเนินการ...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                    });
+                },
+                success: function (response) {
+                    Swal.close();
+                    console.log(response);
+                    if (response.success) {
+                        Swal.fire({
+                            title: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            allowOutsideClick: true,
+                        });
+                        setTimeout(() => {
+                            if (response.reload) {
+                                window.location.reload();
+                            }
+                        }, 2000);
+                    } else {
+                        Swal.fire({
+                            title: response.message,
+                            icon: 'error',
+                            confirmButtonText: "ตกลง",
+                            showConfirmButton: true,
+                            width: '55%'
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        title: "เกิดข้อผิดพลาด",
+                        icon: 'error',
+                        confirmButtonText: 'ตกลง',
+                        showConfirmButton: true
+                    });
+                }
+            });
         }
     </script>

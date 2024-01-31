@@ -11,7 +11,7 @@ $routes->group("/", function ($routes) {
     $routes->match(['get', 'post'], 'article/(:num)', 'HomeController::index_article/$1'); //หน้าบทความทั้งหมด
     $routes->match(['get', 'post'], 'article/(:num)/(:num)', 'HomeController::index_article/$1/$2'); //หน้าบทตามไอดี   (ไอดีบทความ/ประเภท)
 
-    $routes->match(['get', 'post'], 'article/detail', 'HomeController::index_article_detail'); //หน้ารายละเอียดบทความนั้นๆ
+    $routes->match(['get', 'post'], 'article/detail/(:num)/(:num)', 'HomeController::index_article_detail/$1/$2'); //หน้ารายละเอียดบทความนั้นๆ
     $routes->match(['get', 'post'], 'new', 'HomeController::index_new'); //หน้าข่าวทั้งหมด
 });
 
@@ -33,10 +33,11 @@ $routes->group("/dashboard", ['filter' => ['AuthGuard']], function ($routes) {
     //--บทความ--//
     $routes->match(['get', 'post'], 'article/index', 'DashboardController::index_article_all'); //หน้าแสดงบทความทั้งหมด
     $routes->match(['get', 'post'], 'article/add/index', 'DashboardController::index_article_add'); //หน้าเพิ่มบทความ
-    //ฟังชั่น เพิ่ม บทความ
     $routes->match(['get', 'post'], 'article/edit/index/(:num)', 'DashboardController::index_article_edit/$1'); //หน้าแก้ไขบทความ
-    //ฟังชั่น แก้ไข บทความ
-    $routes->match(['get', 'post'], 'article/delete', 'DashboardController::delete_article'); //ฟังชั่น ลบ บทความ
+    $routes->match(['get', 'post'], 'article/create', 'ArticleController::crate_article'); //ฟังชั่น เพิ่ม บทความ
+    $routes->match(['get', 'post'], 'article/edit/(:num)', 'ArticleController::edit_article/$1'); //ฟังชั่น เพิ่ม บทความ
+    $routes->match(['get', 'post'], 'article/delete/(:num)', 'ArticleController::delete_article/$1'); //ฟังชั่น ลบ บทความ
+    $routes->match(['get', 'post'], 'article/getdata/(:num)', 'ArticleController::get_data_table_article/$1'); //ฟังชั่นเรียกข้อมูล
 
 
     //--หมวดหมู่--//

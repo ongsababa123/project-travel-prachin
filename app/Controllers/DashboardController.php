@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\UserModels;
-use App\Models\DetailsModels;
-use App\Models\ActivityModels;
+use App\Models\TypeTravelModels;
+use App\Models\ArticleModels;
 
 // use App\Models\CategoryModels;
 
@@ -40,17 +40,31 @@ class DashboardController extends BaseController
     //หน้าจัดการบทความ
     public function index_article_all()
     {
-
+        $TypeTravelModels = new TypeTravelModels();
+        $data['data_type_travel'] = $TypeTravelModels->findAll();
         echo view('adminview/layout/header');
-        echo view('adminview/article_all');
+        echo view('adminview/article_all', $data);
     }
 
     //หน้าเพิ่มบทความ
     public function index_article_add()
     {
+        $TypeTravelModels = new TypeTravelModels();
+        $data['data_type_travel'] = $TypeTravelModels->findAll();
+        echo view('adminview/layout/header');
+        echo view('adminview/article_add', $data);
+    }
+
+    //หน้าแก้ไขบทความ
+    public function index_article_edit($id_article = null)
+    {
+        $TypeTravelModels = new TypeTravelModels();
+        $ArticleModels = new ArticleModels();
+        $data['data_type_travel'] = $TypeTravelModels->findAll();
+        $data['data_article'] = $ArticleModels->where('id_article', $id_article)->first();
 
         echo view('adminview/layout/header');
-        echo view('adminview/article_add');
+        echo view('adminview/article_edit', $data);
     }
 
     //หน้าการจัดการหมวดหมู่

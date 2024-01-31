@@ -101,30 +101,26 @@
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="<?= base_url('article/detail') ?>">
-                            <div class="card" style="width: 20rem;">
-                                <img class="card-img-top" src="https://source.unsplash.com/random/200x200?sig=1"
-                                    alt="Card image cap">
-                                <div class="card-body">
-                                    <p class="card-text">10 ที่เที่ยว ย่าน MRT สามยอด Old Town สุดวินเทจ
-                                        เที่ยวได้ทั้งวันไม่มีเบื่อ</p>
-                                    <blockquote class="blockquote mb-0">
-                                    </blockquote>
+                        <div class="ph-item" style="height: 30rem; border-radius: 10px">
+                            <div class="ph-col-12">
+                                <div class="ph-picture" style="height: 17rem; border-radius: 10px"></div>
+                                <br>
+                                <div class="ph-row">
+                                    <div class="ph-col-12 big"></div>
+                                    <div class="ph-col-4"></div>
+                                    <div class="ph-col-8 empty"></div>
+                                    <div class="ph-col-6"></div>
+                                    <div class="ph-col-6 empty"></div>
+                                    <div class="ph-col-12"></div>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <i class="fas fa-clock"></i> 29 ม.ค. 2567
-                                        </div>
-                                        <div class="col-md-4">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <i class="fas fa-eye"></i> 22
-                                        </div>
-                                    </div>
+                                <blockquote class="blockquote mb-0">
+                                </blockquote>
+                                <br>
+                                <div class="ph-row">
+                                    <div class="ph-col-12"></div>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
