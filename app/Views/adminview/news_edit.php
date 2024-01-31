@@ -1,4 +1,4 @@
-<title>เพิ่มข่าวสาร</title>
+<title>แก้ไขข่าวสาร</title>
 
 <style>
     .col-lg-custome {
@@ -7,6 +7,8 @@
         max-width: 20.666667%;
     }
 </style>
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="<?= base_url('plugins/icheck-bootstrap/icheck-bootstrap.min.css'); ?>">
 
 <body class="hold-transition sidebar-mini">
     <!-- Content Wrapper. Contains page content -->
@@ -16,15 +18,15 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>เพิ่มข่าวสาร
+                        <h1>แก้ไขข่าวสาร
                         </h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="<?= site_url('/dashboard/index'); ?>">หน้าหลัก</a></li>
                             <li class="breadcrumb-item"><a
-                                    href="<?= site_url('/dashboard/article/index'); ?>">การจัดการบทความ</a></li>
-                            <li class="breadcrumb-item active"><a>เพิ่มข่าวสาร</a></li>
+                                    href="<?= site_url('/dashboard/news/index'); ?>">การจัดการข่าวสาร</a></li>
+                            <li class="breadcrumb-item active"><a>แก้ไขข่าวสาร</a></li>
                         </ol>
                     </div>
                 </div>
@@ -44,18 +46,37 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form class="mb-3" id="form_create_news" action="javascript:void(0)" method="post"
+                                <form class="mb-3" id="form_edit_news" action="javascript:void(0)" method="post"
                                     enctype="multipart/form-data">
+                                    <label for="">สถานะบทความ</label>
+                                    <div class="row">
+                                        <?php
+                                        $status_1 = ($data_news['status'] == 1) ? "checked" : "";
+                                        $status_2 = ($data_news['status'] == 0) ? "checked" : "";
+                                        ?>
+                                        <div class="col-sm-2">
+                                            <div class="icheck-success d-inline">
+                                                <input type="radio" class="score-radio" id="answer_5" name="status"
+                                                    value="1" <?= $status_1 ?>>
+                                                <label for="answer_5" id="label_answer_5">เปิดใช้งาน</label>
+                                            </div>
+                                            <div class="icheck-danger d-inline">
+                                                <input type="radio" class="score-radio" id="answer_6" name="status"
+                                                    value="0" <?= $status_2 ?>>
+                                                <label for="answer_6" id="label_answer_6">ปิดใช้งาน</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-12 text-center">
-                                            <label>ภาพหน้าปกบทความ</label>
+                                            <label>ภาพหน้าปกข่าวสาร</label>
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-sm-2 mx-auto text-center border">
-                                                        <a href="<?= base_url('dist/img/image-preview.png') ?>"
+                                                        <a href="data:image/jpeg;base64,<?= $data_news['pic_topic'] ?>"
                                                             data-toggle="lightbox" id="image-preview-extra-">
                                                             <img class="img-fluid mb-2"
-                                                                src="<?= base_url('dist/img/image-preview.png') ?>"
+                                                                src="data:image/jpeg;base64,<?= $data_news['pic_topic'] ?>"
                                                                 alt="white sample" id="image-preview-" />
                                                         </a>
                                                     </div>
@@ -74,21 +95,23 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>หัวข้อข่าวสาร</label>
-                                                <textarea name="topic_news" id="topic_news" cols="5" rows="8" class="form-control"
-                                                    required></textarea>
+                                                <textarea name="topic_news" id="topic_news" cols="5" rows="5"
+                                                    class="form-control"><?= $data_news['topic_news'] ?></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <label>เนื้อหาในข่าวสาร</label>
-                                            <textarea class="form-control" type="text" placeholder="" name="detail"
-                                                id="summernote1"></textarea>
+                                            <textarea class="form-control" type="text" placeholder=""
+                                                name="detail"
+                                                id="summernote1"><?= $data_news['detail'] ?></textarea>
                                         </div>
                                     </div>
                                     <div class="card-footer text-center" id="btn_price_late">
                                         <button type="submit" class="btn btn-success" name="submit" value="Submit"
                                             id="submit">บันทึก</button>
+                                        <button type="button" class="btn btn-danger">ยกเลิก</button>
                                     </div>
                                 </form>
                             </div>
@@ -116,9 +139,9 @@
             },);
         })
 
-        $("#form_create_news").on('submit', function (e) {
+        $("#form_edit_news").on('submit', function (e) {
             e.preventDefault();
-            action_('dashboard/news/create', 'form_create_news');
+            action_('dashboard/news/edit/<?= $data_news['id_news'] ?>', 'form_edit_news');
         });
     </script>
     <script>

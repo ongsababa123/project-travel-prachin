@@ -8,7 +8,7 @@
                             ท่องเที่ยวปราจีน</a>
                     </li>
                     <li>
-                        <a href="<?= site_url('/book/booklist') ?>" style="color: white;"><i class="fab fa-instagram"></i> travel-prachin</a>
+                        <a href="<?= base_url('/article/0') ?>" style="color: white;"><i class="fab fa-instagram"></i> travel-prachin</a>
                     </li>
                 </ul>
             </nav>

@@ -12,6 +12,7 @@ $routes->group("/", function ($routes) {
     $routes->match(['get', 'post'], 'article/(:num)/(:num)', 'HomeController::index_article/$1/$2'); //หน้าบทตามไอดี   (ไอดีบทความ/ประเภท)
 
     $routes->match(['get', 'post'], 'article/detail/(:num)/(:num)', 'HomeController::index_article_detail/$1/$2'); //หน้ารายละเอียดบทความนั้นๆ
+    $routes->match(['get', 'post'], 'news/detail/(:num)', 'HomeController::index_news_detail/$1'); //หน้ารายละเอียดข่าวสารนั้นๆ
     $routes->match(['get', 'post'], 'new', 'HomeController::index_new'); //หน้าข่าวทั้งหมด
 });
 
@@ -48,9 +49,10 @@ $routes->group("/dashboard", ['filter' => ['AuthGuard']], function ($routes) {
 
     //--ข่าวสาร--//
     $routes->match(['get', 'post'], 'news/index', 'DashboardController::index_news_all'); //หน้าแสดงข่าวสารทั้งหมด
-    $routes->match(['get', 'post'], 'news/add/index', 'DashboardController::index_news_add'); //หน้าแสดงข่าวสารทั้งหมด
-    //ฟังชั่น เพิ่ม ข่าวสาร
-    //ฟังชั่น แก้ไข ข่าวสาร
-    //ฟังชั่น ลบ ข่าวสาร
-
+    $routes->match(['get', 'post'], 'news/add/index', 'DashboardController::index_news_add'); //หน้าเพิ่มข่าวสาร
+    $routes->match(['get', 'post'], 'news/edit/index/(:num)', 'DashboardController::index_news_edit/$1'); //หน้าแก้ไขข่าวสาร
+    $routes->match(['get', 'post'], 'news/create', 'NewsController::crate_news');  //ฟังชั่น เพิ่ม ข่าวสาร
+    $routes->match(['get', 'post'], 'news/edit/(:num)', 'NewsController::edit_news/$1');  //ฟังชั่น แก้ไข ข่าวสาร
+    $routes->match(['get', 'post'], 'news/delete/(:num)', 'NewsController::delete_news/$1');  //ฟังชั่น ลบ ข่าวสาร
+    $routes->match(['get', 'post'], 'news/getdata', 'NewsController::get_data_table_news'); //ฟังชั่นเรียกข้อมูล
 });

@@ -1,5 +1,5 @@
 <title>
-    <?= $article_data['topic'] ?>
+    <?= $news_data['topic_news'] ?>
 </title>
 <?php
 function formatDate($dateString)
@@ -38,14 +38,14 @@ function formatDate($dateString)
                         <div class="card">
                             <div class="card-body">
                                 <h2 style="font-weight: bold;">
-                                    <?= $article_data['topic'] ?>
+                                    <?= $news_data['topic_news'] ?>
                                 </h2>
                                 <br>
                                 <h5><i class="fas fa-eye"></i>
-                                    <?= $article_data['view_count'] ?> ครั้ง
+                                    <?= $news_data['view_count'] ?> ครั้ง
                                 </h5>
                                 <h5><i class="fas fa-clock"></i>
-                                    <?= formatDate($article_data['data_create']) ?>
+                                    <?= formatDate($news_data['data_create']) ?>
                                 </h5>
                             </div>
                         </div>
@@ -77,51 +77,16 @@ function formatDate($dateString)
                         <div class="card">
                             <div class="card-body">
                                 <h4 style="font-weight: bold;" class="text-center">
-                                    <?= $article_data['topic'] ?>
+                                    <?= $news_data['topic_news'] ?>
                                 </h4>
                                 <blockquote class="blockquote mb-0">
                                 </blockquote>
                                 <br>
                                 <h5>
-                                    <?= $article_data['detail'] ?>
+                                    <?= $news_data['detail'] ?>
                                 </h5>
                                 <blockquote class="blockquote mb-0">
                                 </blockquote>
-                                <br>
-                                <ui>
-                                    <?php if ($article_data['google_link'] != null): ?>
-                                        <li style="font-size: 16px"><strong style="font-weight: bold;">Google Map :
-                                            </strong>&nbsp;<a href="<?= $article_data['google_link'] ?>" target="_blank"
-                                                style="color: blue;">
-                                                <?= $article_data['google_link'] ?>
-                                            </a></li>
-                                    <?php endif; ?>
-                                    <?php if ($article_data['location'] != null): ?>
-                                        <li style="font-size: 16px"><strong style="font-weight: bold;">สถานที่ :
-                                            </strong>&nbsp;<a>
-                                                <?= $article_data['location'] ?>
-                                            </a></li>
-                                    <?php endif; ?>
-                                    <?php if ($article_data['location_price'] != null): ?>
-                                        <li style="font-size: 16px"><strong style="font-weight: bold;">ค่าเข้าสถานที่ :
-                                            </strong>&nbsp;<a>
-                                                <?= $article_data['location_price'] ?>
-                                            </a></li>
-                                    <?php endif; ?>
-                                    <?php if ($article_data['face_book_name'] != null && $article_data['facebook_link'] != null): ?>
-                                        <li style="font-size: 16px"><strong style="font-weight: bold;">Facebook :
-                                            </strong>&nbsp;<a href="<?= $article_data['facebook_link'] ?>" target="_blank"
-                                                style="color: blue;">
-                                                <?= $article_data['face_book_name'] ?>
-                                            </a></li>
-                                    <?php endif; ?>
-                                    <?php if ($article_data['time_open'] != null): ?>
-                                        <li style="font-size: 16px"><strong style="font-weight: bold;">เวลาเปิด - ปิด :
-                                            </strong>&nbsp;<a>
-                                                <?= $article_data['time_open'] ?>
-                                            </a></li>
-                                    <?php endif; ?>
-                                </ui>
                             </div>
                         </div>
                     </div>

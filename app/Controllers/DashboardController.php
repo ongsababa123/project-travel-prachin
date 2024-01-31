@@ -5,8 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModels;
 use App\Models\TypeTravelModels;
 use App\Models\ArticleModels;
-
-// use App\Models\CategoryModels;
+use App\Models\NewsModels;
 
 class DashboardController extends BaseController
 {
@@ -27,8 +26,22 @@ class DashboardController extends BaseController
     //หน้าหลัก
     public function index_dashboard()
     {
+        $TypeTravelModels = new TypeTravelModels();
+        $ArticleModels = new ArticleModels();
+        $NewsModels = new NewsModels();
+        $data['data_type_travel'] = $TypeTravelModels->findAll();
+        $data['data_article'] = $ArticleModels->select('id_article, topic, view_count')->findAll();
+        $data['data_news'] = $NewsModels->select('id_news , topic_news, view_count')->findAll();
+
+        foreach ($data['data_type_travel'] as $key => $value) {
+            $data['data_type_travel'][$key]['count_article'] = $ArticleModels->where('id_type_travel', $value['id_type_travel'])->countAllResults();
+            $data['data_type_travel'][$key]['count_view_type'] = 0;
+            foreach ($data['data_article'] as $key1 => $value1) {
+                $data['data_type_travel'][$key]['count_view_type'] = $value1['view_count'] + $data['data_type_travel'][$key]['count_view_type'];
+            }
+        }
         echo view('adminview/layout/header');
-        echo view('adminview/home');
+        echo view('adminview/home', $data);
     }
     //หน้าจัดการผู้ใช้
     public function index_user()
@@ -75,7 +88,7 @@ class DashboardController extends BaseController
         echo view('adminview/category');
     }
 
-    //หน้าการจัดข่าวสาร
+    //หน้าการจัดการข่าวสาร
     public function index_news_all()
     {
 
@@ -83,14 +96,21 @@ class DashboardController extends BaseController
         echo view('adminview/news');
     }
 
-    //หน้าเพิ่มจัดข่าวสาร
+    //หน้าเพิ่มข่าวสาร
     public function index_news_add()
     {
-
         echo view('adminview/layout/header');
         echo view('adminview/news_add');
     }
 
+    //หน้าแก้ไตข่าวสาร
+    public function index_news_edit($id_news = null)
+    {
+        $NewsModels = new NewsModels();
+        $data['data_news'] = $NewsModels->where('id_news', $id_news)->first();
 
+        echo view('adminview/layout/header');
+        echo view('adminview/news_edit', $data);
+    }
 
 }

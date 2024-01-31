@@ -22,7 +22,7 @@ function formatDate($dateString)
             <h1>สถานที่ท่องเที่ยวในจังหวัดปราจีนบุรี</h1>
             <h3>"ปราจีนบุรี: สุดยอดแหล่งท่องเที่ยวทางเว็บ! 🌍✨ #สวยสดใส #ปราจีนบุรีเท่ห์ทุกรูป"</h3>
             <br />
-            <a href="<?= site_url('/book/booklist') ?>" class="btn btn-outline-neutral btn-round">เลือกชมเลย!</a>
+            <a href="<?= base_url('/article/0') ?>" class="btn btn-outline-neutral btn-round">เลือกชมเลย!</a>
         </div>
     </div>
 </div>
@@ -146,37 +146,50 @@ function formatDate($dateString)
             <h2 class="title" style="font-weight: bold;">ข่าวสารล่าสุด</h2>
             <div class="row" id="new_data">
                 <div class="col-md-12">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" src="https://source.unsplash.com/random/100x50?sig=1"
-                                    alt="First slide">
+                    <?php if ($news_data_last != null): ?>
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <?php foreach ($news_data_last as $key => $value_news_last): ?>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="<?= $key ?>" <?= ($key === 0) ? 'class="active"' : '' ?>></li>
+                                <?php endforeach; ?>
+                            </ol>
+                            <div class="carousel-inner">
+                                <?php foreach ($news_data_last as $key => $value_news_last): ?>
+                                    <div class="carousel-item <?= ($key === 0) ? 'active' : '' ?>">
+                                        <a href="<?= base_url('news/detail/' . $value_news_last->id_news) ?>" traget="_blank">
+                                            <img class="d-block w-100"
+                                                src="data:image/jpeg;base64,<?= $value_news_last->pic_topic ?>"
+                                                style="height: 30rem; width: 100%;" alt="Slide <?= $key + 1 ?>">
+                                        </a>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="https://source.unsplash.com/random/100x50?sig=1"
-                                    alt="Second slide">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="https://source.unsplash.com/random/100x50?sig=1"
-                                    alt="Third slide">
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h1>
+                                                ยังไม่มีข้อมูล
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                            data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                            data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="row" id="new_load">
