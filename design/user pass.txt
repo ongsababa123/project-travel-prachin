@@ -1,2 +1,15 @@
 test@gmail.com
 pass 12345678a
+
+
+server ip : 20.189.112.59
+user: travel_pra
+pass: @qwert12345678
+
+phpmyadmin (sql)
+root
+@Qwert1234
+
+ftp
+web
+@qwert12345678
