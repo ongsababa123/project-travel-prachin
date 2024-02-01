@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-31T13:07:35.267Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0" etag="HttjH8hEGQRCcizvDP__" version="23.0.2" type="device">
+<mxfile host="app.diagrams.net" modified="2024-02-01T11:58:39.390Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0" etag="F9QJoibLpJzaCOyquKh7" version="23.0.2" type="device">
   <diagram name="หน้า-1" id="HYrOw2vbyxPXMUA1Kma0">
     <mxGraphModel dx="1252" dy="1852" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -216,7 +216,7 @@
             <mxRectangle width="153" height="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y_sDTkLJyYy-diGyzPAj-33" value="date" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;" parent="y_sDTkLJyYy-diGyzPAj-31" vertex="1">
+        <mxCell id="y_sDTkLJyYy-diGyzPAj-33" value="varchar (100)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;" parent="y_sDTkLJyYy-diGyzPAj-31" vertex="1">
           <mxGeometry x="153" width="107" height="40" as="geometry">
             <mxRectangle width="107" height="40" as="alternateBounds" />
           </mxGeometry>
@@ -234,7 +234,7 @@
             <mxRectangle width="153" height="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y_sDTkLJyYy-diGyzPAj-37" value="date" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;" parent="y_sDTkLJyYy-diGyzPAj-35" vertex="1">
+        <mxCell id="y_sDTkLJyYy-diGyzPAj-37" value="varchar (100)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;" parent="y_sDTkLJyYy-diGyzPAj-35" vertex="1">
           <mxGeometry x="153" width="107" height="40" as="geometry">
             <mxRectangle width="107" height="40" as="alternateBounds" />
           </mxGeometry>
@@ -644,7 +644,7 @@
             <mxRectangle width="153" height="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y_sDTkLJyYy-diGyzPAj-136" value="date" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;" parent="y_sDTkLJyYy-diGyzPAj-134" vertex="1">
+        <mxCell id="y_sDTkLJyYy-diGyzPAj-136" value="varchar (100)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;" parent="y_sDTkLJyYy-diGyzPAj-134" vertex="1">
           <mxGeometry x="153" width="107" height="40" as="geometry">
             <mxRectangle width="107" height="40" as="alternateBounds" />
           </mxGeometry>
@@ -662,7 +662,7 @@
             <mxRectangle width="153" height="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y_sDTkLJyYy-diGyzPAj-140" value="date" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;" parent="y_sDTkLJyYy-diGyzPAj-138" vertex="1">
+        <mxCell id="y_sDTkLJyYy-diGyzPAj-140" value="varchar (100)" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;" parent="y_sDTkLJyYy-diGyzPAj-138" vertex="1">
           <mxGeometry x="153" width="107" height="40" as="geometry">
             <mxRectangle width="107" height="40" as="alternateBounds" />
           </mxGeometry>
