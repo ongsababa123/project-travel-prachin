@@ -15,7 +15,7 @@ function formatDate($dateString)
 ?>
 <!-- End Navbar -->
 
-<div class="page-header" data-parallax="true"
+<div class="page-header page-header-xs" data-parallax="true"
     style="background-image: url('<?= base_url('dist/img/background2.jpg') ?>');">
     <div class="filter"></div>
     <div class="container">
